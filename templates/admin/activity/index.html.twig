@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Activités{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h3>Gérer les activités</h3>
+    <div class="responsive-table-2">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Auteur</th>
+                <th>Lieux</th>
+                <th>Description</th>
+                <th>Profils recherchés</th>
+                <th>createdAt</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activities %}
+                <tr>
+                    <td>{{activity.id}}</td>
+                    <td>{{activity.user}}</td>
+                    <td>{{activity.address}}</td>
+                    <td>{{activity.description}}</td>
+                    <td>{{activity.profile}}</td>
+                    <td>{{activity.createdAt|date}}</td>
+                    <td>
+                        <label class="form-switch mt-2">
+                            <input type="checkbox"{{(activity.active) ? 'checked': '' }} data-id="{{ activity.id }}"/>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td class="text-center">
+                        <a href="#" class="btn rounded-1 primary press modal-trigger" data-target="modal-delete" data-id="{{ activity.id }}" data-user="{{ activity.user }}" data-description="{{ activity.description }}">
+                        Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="modal shadow-1 white falling" id="modal-delete" data-ax="modal">
+            <div class="modal-header">Supprimer l'annonce</div>
+
+                <div class="divider"></div>
+
+                <div class="modal-content">   
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="modal-footer">
+                    <a href="" class=" ml-auto btn shadow-1 rounded-1 small primary">Oui</a>
+                    <button data-target="modal-delete" class="ml-auto btn shadow-1 rounded-1 small primary modal-trigger">Non</button>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    window.onload = ()=> 
+    {
+        //Initialisation de ma modal
+        let modal = new Axentix.Modal('#modal-delete');
+        //Bouton activer appel Ajax 
+        //passe ma valeur de 0 à 1 en bdd
+        let activer = document.querySelectorAll("[type=checkbox]")
+        for(let bouton of activer ){
+            bouton.addEventListener("click", function(){
+                let xmlhttp = new XMLHttpRequest;
+                xmlhttp.open("get",`/admin/activity/activer/${this.dataset.id}`);
+                xmlhttp.send();
+            })
+        }
+        //Bouton supprimer qui ouvre ma modale et supprime l'activité
+        let supprimer = document.querySelectorAll(".modal-trigger")
+        for(let bouton of supprimer){
+            bouton.addEventListener("click",function(){
+                document.querySelector(".modal-footer a ").href = `/admin/activity/supprimer/${this.dataset.id}`
+                document.querySelector(".modal-content").innerText = `Vous êtes sur le point de supprimer l'annonce de la base de données. Êtes-vous certain de vouloir supprimer le contenu : "${this.dataset.description}" de "${this.dataset.user}"`
+                
+            })
+        }
+    }
+</script>
+    
+            
+{% endblock %}

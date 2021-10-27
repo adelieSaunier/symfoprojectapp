@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir l'activité {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="card shadow-1 fx-row">
+        <div class="primary d-flex vcenter fx-center px-4">
+            
+        </div>
+        <div class="flex fx-col fx-grow">
+            <div class="card-header">{{ activity.category.name}}</div>
+            <div class="card-content">
+            <p>
+                {{ activity.address}}
+            </p>  
+            <p>
+                {{ activity.description }}
+            </p>  
+            <p>
+                {{ activity.user.firstname}} {{ activity.user.lastname}}
+            </p>
+            <p>
+                {{form(form)}}
+            </p>
+            
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}

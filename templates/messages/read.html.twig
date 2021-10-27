@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+
+    <div class="grix xs4 container">
+        <div class="col-xs4">
+            <a href="{{ path('received') }}">retour</a>
+            <h1>Message</h1>
+            <h2>{{ message.title }}</h2>
+            <p>Le {{ massage.createdAt|date }}</p>
+            <div class="text-message">{{ message.message}}</div>
+        </div>
+    </div>
+    
+{% endblock %}

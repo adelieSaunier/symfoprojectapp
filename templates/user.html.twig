@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Profil utilisateur{% endblock %}</title>
+        <!-- Axentix CSS minified version -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@1.1.0/dist/css/axentix.min.css">
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">        
+    </head>
+
+    <body class="layout with-sidenav">
+        <header>
+            <nav class="navbar shadow-1 primary">
+                <a href="{{ path('app_home') }}" target="_blank" class="navbar-brand">Source</a>
+                <div class="navbar-menu ml-auto">
+                <a class="navbar-link" href="#">Accueil</a>
+                <a class="navbar-link" href="#">Link 2</a>
+                <a class="navbar-link" href="#">Link 3</a>
+                <a class="navbar-link" href="#">Link 4</a>
+                </div>
+            </nav>
+        </header>
+        <div id="example-sidenav" data-ax="sidenav" class="sidenav shadow-1 large fixed white">
+            <div class="sidenav-header">
+                <button data-target="example-sidenav" class="sidenav-trigger"><i class="fas fa-times"></i></button>
+                <img class="sidenav-logo dropshadow-1" src="your_img_path" alt="Logo" />
+            </div>
+            <a href="{{ path('user') }}" class="sidenav-link active">Mon profil</a>
+            <a href="#" class="sidenav-link">Mes activités proposées</a>
+            <a href="#" class="sidenav-link">Ajouter une activités</a>
+            <a href="#" class="sidenav-link">Mes Messages</a>
+            
+        </div>
+
+        <main>
+        {% block body %}
+
+            <button data-target="example-sidenav"
+            class="btn rounded-1 press amaranth dark-1 sidenav-trigger hide-md-up">
+            Voir mes options
+            </button>
+        
+        {% endblock %}
+        </main>
+
+        <footer class="footer primary">
+        Copyright © 2021 - Source
+        </footer>
+    
+        
+        <!-- Axentix JS minified version -->
+        <script src="https://cdn.jsdelivr.net/npm/axentix@1.1.0/dist/js/axentix.min.js"></script>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/axentix@1.1.0/dist/js/axentix.min.js"></script>
+        <script src="{{ asset('js/script.js') }} " ></script>
+    </body>
+</html>

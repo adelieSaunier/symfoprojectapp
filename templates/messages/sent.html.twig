@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+
+    <div class="grix xs4 container">
+        <div class="col-xs4">
+            <h1>Boîte de réception</h1>
+            <p>Vous avez envoyés:{{ app.user.sent|length }}</p>
+        </div>
+    </div>
+
+    <div class="responsive-table-2">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>À</th>
+                <th>Sujet</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in app.user.sent %}
+                {% if message.isRead == 0 %}
+                    {% set bold = "font-w600" %}
+                {% else %}
+                    {% set bold = "" %}
+                {% endif %}
+                <tr>
+                    <td class="{{bold}}">{{message.receiver.email}}</td>
+                    <td class="{{bold}}"><a href="{{ path('read', {id: message.id}) }}">{{message.title}}</a></td>
+                    <td class="{{bold}}">{{message.createdAt}}</td>
+                    <td class="text-center">
+                        <a href="{{path('delete', {id: message.id}) }}" class="btn shadow-1 rounded-1 red">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <a href="{{path('admin_category_ajout')}}" class="btn shadow-1 rounded-1 blue">Ajouter une catégorie</a>
+        
+    </div>
+
+    <a href="{{path("send")}}" class="btn primary">Messages reçus</a>
+    <a href="#">Messages envoyés</a>
+{% endblock %}

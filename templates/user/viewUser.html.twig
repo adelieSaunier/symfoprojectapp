@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{#{{ LE PROFIL UTILISATEUR VU PAR LES AUTRES UTILISATEURS }}#}
+
+{% block title %} {{ app.user.firstname }} {{ app.user.lastname }} {% endblock %}
+
+{% block body %}
+
+<div class="caroulix" id="carousel" data-ax="caroulix" data-ax-caroulix-autoplay-enabled="false" data-caroulix-indicators-enabled="true">
+        <div class="caroulix-arrow caroulix-prev">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+    <div class="caroulix-arrow caroulix-next">
+        <i class="fas fa-chevron-right"></i>
+    </div>
+        {% for image in app.user.images %}
+            <div class="caroulix-item">
+                <img src="{{ asset('/uploads/' ~ image.name)|imagine_filter('rectangle') }}" alt="image du profil : {{ app.user.firstname }}"  >
+            </div> 
+        {% endfor %}
+    </div>
+</div>
+
+<div class="grix container">
+
+    {#{{ CAROUSEL D'IMAGES POUR LE PROFIL UTILISATEUR }}#}
+
+    <div class="col-xs4">
+        <h3>Profil de {{ app.user.firstname }} {{ app.user.lastname }} </h3>
+    </div>
+
+    <div class="col-xs1" >NOM:</div>
+    <div class="col-xs3" >{{ app.user.lastname }}</div>
+    <div class="col-xs1" >PRÉNOM:</div>
+    <div class="col-xs3" >{{ app.user.firstname }}</div>
+    <div class="col-xs1" >EMAIL:</div>
+    <div class="col-xs3" >{{ app.user.email }}</div>
+
+    <div class="col-xs4">
+        <h3>Activités proposées : {{app.user.activities|length}}</h3>
+    </div>
+
+    {% for activity in app.user.activities %}
+        <div class="col-xs1" >CATÉGORIE:</div>
+        <div class="col-xs3" >{{ activity.category }}</div>
+        <div class="col-xs1" >Lieux:</div>
+        <div class="col-xs3" >{{ activity.address }}</div>
+        <div class="col-xs1" >DESCRIPTION:</div>
+        <div class="col-xs3" >{{ activity.description }}</div>
+    {% endfor %}  
+</div>
+
+{% endblock %}
+
+
+{#{{ INITIALISATION JS CAROUSEL }}#}
+{% block javascripts %}
+            
+    <script>
+        let caroulix = new Axentix.Caroulix('#carousel');
+    
+    </script>
+            
+{% endblock %}

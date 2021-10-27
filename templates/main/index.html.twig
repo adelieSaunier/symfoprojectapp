@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ACCUEIL{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="search">
+        {{ form(form) }}
+    </div>
+    {% for activity in activities %}
+
+        <div class="card shadow-1 fx-row">
+            <div class="primary d-flex vcenter fx-center px-4">
+                
+            </div>
+            <div class="flex fx-col fx-grow">
+                <div class="card-header">
+                    <a href="#">
+                        {{ activity.category.name}} 
+                    </a>
+                    <a href="#">
+                        {{ activity.user.city}} 
+                    </a>
+                </div>
+
+                <div class="card-content">
+                    <p>
+                        {{ activity.address}}
+                    </p>  
+                    <p>
+                        {{ activity.description|u.truncate( 150, '...' ) }}
+                    </p>  
+                    <p>
+                        <a href="{{path('activity_details', { slug: activity.slug })}}">
+                            En savoir plus
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{{path('user_details', { id: activity.user.id })}}">
+                            {{ activity.user.firstname}} {{ activity.user.lastname}}
+                        </a>
+                    </p>
+                    {#{{ AJOUT DANS LES FAVORIS }}#}
+                    <div class="txt-red">
+                        {% if is_granted("ROLE_USER") %}
+                            {% for favorite in activity.favorite %}
+                                {% if favorite.id == app.user.id %}
+                                    <a href="{{ path('activity_delete_favorite', {id: activity.id}) }}"><i class="fas fa-heart"></i></a>
+                                {% else %}
+                                    <a href="{{ path('activity_add_favorite', {id: activity.id}) }}"><i class="far fa-heart"></i></a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('activity_add_favorite', {id: activity.id}) }}"><i class="far fa-heart"></i></a>
+                            {% endfor %}
+                        {% else %}
+                            <i class="far fa-heart"></i>  
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

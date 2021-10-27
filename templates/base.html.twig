@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Axentix CSS minified version -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@1.1.0/dist/css/axentix.min.css">
+        <script src="https://kit.fontawesome.com/a18be3a778.js" crossorigin="anonymous"></script>
+        
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">        
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar shadow-1 primary">
+                <a href="{{ path('app_home') }}" target="_blank" class="navbar-brand">Source</a>
+                <div class="navbar-menu ml-auto">
+                <a href="{{ path('app_home') }}" class="navbar-link" href="#">Toutes les activités</a>
+                <a href="{{ path('app_login') }}" class="navbar-link" href="#">Me connecter</a>
+                </div>
+            </nav>
+        </header>
+
+        
+
+        <main>
+        {% block body %}
+        
+        {% endblock %}
+        </main>
+
+        <footer class="footer primary">
+        Copyright © 2021 - Source
+        </footer>
+    
+        
+        <!-- Axentix JS minified version -->
+        <script src="https://cdn.jsdelivr.net/npm/axentix@1.1.0/dist/js/axentix.min.js"></script>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+        <script src="{{ asset('js/script.js') }} " ></script>
+    </body>
+</html>
